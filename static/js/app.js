@@ -30,7 +30,7 @@ Promise.all([
 
 // Function to create vaccination line plot
 function buildVaccinationChart(country) {
-    // Cargar ambos archivos JSON simultáneamente
+    // Upload the two vaccination JSON files
     Promise.all([
       d3.json("http://localhost:8080/data_extraction/measles_vacc_data.json"),
       d3.json("http://localhost:8080/data_extraction/dtp_vacc_data.json")
@@ -73,7 +73,7 @@ function buildVaccinationChart(country) {
         width: 1500
       };
   
-      // Renderizar el gráfico combinando ambas trazas
+      // Combine traces
       Plotly.newPlot('line-vaccination', [traceMeasles, traceDtp], layout1);
     })
     .catch(error => {
@@ -84,7 +84,7 @@ function buildVaccinationChart(country) {
 
 // Function to create disease incidence line plot
 function buildDiseaseChart(country) {
-    // Cargar ambos archivos JSON simultáneamente
+    // Upload the two incidence JSON
     Promise.all([
       d3.json("http://localhost:8080/data_extraction/measles_inc_data.json"),
       d3.json("http://localhost:8080/data_extraction/diphth_incidence_data.json")
@@ -127,7 +127,7 @@ function buildDiseaseChart(country) {
         width: 1500
       };
   
-      // Renderizar el gráfico combinando ambas trazas
+      // Combine traces
       Plotly.newPlot('line-incidence', [traceIncidenceMeasles, traceIncidenceDtp], layout2);
     })
     .catch(error => {
@@ -137,7 +137,7 @@ function buildDiseaseChart(country) {
 
 // Function to create mortality line plot
 function mortalityChart(country) {
-    // Cargar ambos archivos JSON simultáneamente
+    // Upload Mortality JSON 
     Promise.all(d3.json("http://localhost:8080/data_extraction/mortality_data.json")
     ).then((mortalityData) => {
       
@@ -165,7 +165,7 @@ function mortalityChart(country) {
         width: 1500
       };
   
-      // Renderizar el gráfico combinando ambas trazas
+      // Plot
       Plotly.newPlot('line-mortality', [traceMortality], layout3);
     })
     .catch(error => {
