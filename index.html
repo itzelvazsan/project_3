@@ -23,11 +23,13 @@
       <div class="col-md-3">
         <div class="card card-body bg-light mb-3">
           <h6>Country:</h6>
-          <select id="selCountry" onchange="optionChanged(this.value)"></select>
+          <select id="selCountry" onchange="optionChanged(this.value, d3.select('#selYear').property('value'))">
+          </select>
         </div>
         <div class="card card-body bg-light mb-3">
             <h6>Year:</h6>
-            <select id="selYear" onchange="optionChanged(this.value)"></select>
+            <select id="selYear" onchange="optionChanged(d3.select('#selCountry').property('value'), this.value)">
+            </select>
           </div>
         
         <div class="card card-primary">

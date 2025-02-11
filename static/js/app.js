@@ -49,6 +49,7 @@ Promise.all([
   console.error("Error with JSON:", error);
 });
 
+
 // Function to create vaccination line plot
 function buildVaccinationChart(country) {
   // Search vaccination datasets in datasets array
@@ -183,11 +184,11 @@ function buildPanelData(country, year) {
   let countryMortality =  mortality.filter(obj => obj.COUNTRY == country);
 
   // Filter the data by year
-  let yearMeaslesVac =  countryMeaslesVac.filter(obj => obj.YEAR == year);
-  let yearDtpVac =  countryDtpVac.filter(obj => obj.YEAR == year);
-  let yearMeaslesInc =  countryMeaslesInc.filter(obj => obj.YEAR == year);
-  let yearDtpInc =  countryDtpInc.filter(obj => obj.YEAR == year);
-  let yearMortality =  countryMortality.filter(obj => obj.YEAR == year);
+  let yearMeaslesVac =  countryMeaslesVac.filter(obj => +obj.YEAR == +year);
+  let yearDtpVac =  countryDtpVac.filter(obj => +obj.YEAR == +year);
+  let yearMeaslesInc =  countryMeaslesInc.filter(obj => +obj.YEAR == +year);
+  let yearDtpInc =  countryDtpInc.filter(obj => +obj.YEAR == +year);
+  let yearMortality =  countryMortality.filter(obj => +obj.YEAR == +year);
 
 
   // Get numeric field
@@ -253,11 +254,14 @@ function init() {
       let firstYear = years[0];
 
 
-      // Call functions
+      // Call functions with first selections
       buildVaccinationChart(firstCountry);
       buildDiseaseChart(firstCountry);
       mortalityChart(firstCountry);
       buildPanelData(firstCountry, firstYear);
+      
+      // Set currentCountry to the first country so that later changes work correctly
+      currentCountry = firstCountry;
     })
     .catch(error => console.error("Error in dashboard:", error));
 }
@@ -277,6 +281,7 @@ function optionChanged(newCountry, newYear) {
     mortalityChart(newCountry);
     currentCountry = newCountry; 
   }
+
 }
 
 
