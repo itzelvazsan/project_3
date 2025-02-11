@@ -1,0 +1,45 @@
+h1 {
+    color: #111857;
+    font-family: Arial, sans-serif;
+}
+
+p {
+    color: black;
+}
+
+h6 {
+    color: #111857;
+    font-family: Arial, sans-serif;
+}
+
+
+.card{
+    background-color: #4682b4;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+body {
+    background-color: #f0f8ff;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    background-color: #ffffff;
+    border: 1px solid #d8d2d5;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  #disease-data {
+    background-color: #fff8dc;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
