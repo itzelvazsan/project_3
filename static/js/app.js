@@ -87,8 +87,8 @@ function buildVaccinationChart(country) {
     title: `Vaccination Rates in ${country}`,
     xaxis: { title: 'Year' },
     yaxis: { title: 'Vaccination Rate' },
-    height: 700,
-    width: 1300
+    height: 600,
+    width: 650
   };
   
   //Plot "line-vaccination"
@@ -130,8 +130,8 @@ function buildDiseaseChart(country) {
     title: `Incidence Rates in ${country}`,
     xaxis: { title: 'Year' },
     yaxis: { title: 'Incidence Rate' },
-    height: 700,
-    width: 1300
+    height: 600,
+    width: 650
   };
   
   Plotly.newPlot('line-incidence', [traceMeaslesIncidence, traceDtpIncidence], layoutIncidence);
@@ -159,7 +159,7 @@ function mortalityChart(country) {
     title: `Infant Mortality Rates in ${country}`,
     xaxis: { title: 'Year' },
     yaxis: { title: 'Infant Mortality Rate' },
-    height: 700,
+    height: 600,
     width: 1300
   };
   
