@@ -55,7 +55,7 @@ var countryMarkers = [
   { lat: -38.4161, lon: -63.6167, name: "ARG", vaccinationRate: "75%" }, // Argentina
   { lat: -33.8688, lon: -70.6483, name: "CHL", vaccinationRate: "80%" }, // Chile
   { lat: -15.7801, lon: -47.9292, name: "BRA", vaccinationRate: "78%" }, // Brazil
-  { lat: -23.6345, lon: -102.5528, name: "MEX", vaccinationRate: "90%" }, // Mexico
+  { lat: 23.6345, lon: -102.5528, name: "MEX", vaccinationRate: "90%" }, // Mexico
   { lat: -9.19, lon: -75.0152, name: "PER", vaccinationRate: "80%" }, // Peru
   { lat: 4.5709, lon: -74.2973, name: "COL", vaccinationRate: "82%" }, // Colombia
   { lat: -12.0464, lon: -77.0428, name: "PER", vaccinationRate: "80%" }, // Peru
