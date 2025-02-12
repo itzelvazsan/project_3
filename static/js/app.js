@@ -37,6 +37,91 @@ Promise.all([
 
 
       // Map with Leaflet
+// Create the map with Leaflet
+// Your existing map setup
+var map = L.map('map').setView([37.8, -96], 4); // Centered on the US
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Markers for countries
+var countryMarkers = [
+  { lat: 37.0902, lon: -95.7129, name: "USA", vaccinationRate: "85%" }, // United States
+  { lat: 56.1304, lon: -106.3468, name: "CAN", vaccinationRate: "80%" }, // Canada
+  { lat: 13.4460, lon: -83.9537, name: "HND", vaccinationRate: "70%" }, // Honduras
+  { lat: 17.1896, lon: -88.4976, name: "BLZ", vaccinationRate: "85%" }, // Belize
+  { lat: 3.1966, lon: -60.4186, name: "GUY", vaccinationRate: "85%" }, // Guyana
+  { lat: -38.4161, lon: -63.6167, name: "ARG", vaccinationRate: "75%" }, // Argentina
+  { lat: -33.8688, lon: -70.6483, name: "CHL", vaccinationRate: "80%" }, // Chile
+  { lat: -15.7801, lon: -47.9292, name: "BRA", vaccinationRate: "78%" }, // Brazil
+  { lat: -23.6345, lon: -102.5528, name: "MEX", vaccinationRate: "90%" }, // Mexico
+  { lat: -9.19, lon: -75.0152, name: "PER", vaccinationRate: "80%" }, // Peru
+  { lat: 4.5709, lon: -74.2973, name: "COL", vaccinationRate: "82%" }, // Colombia
+  { lat: -12.0464, lon: -77.0428, name: "PER", vaccinationRate: "80%" }, // Peru
+  { lat: 10.1616, lon: -83.5719, name: "CRI", vaccinationRate: "85%" }, // Costa Rica
+  { lat: 1.2835, lon: -82.7735, name: "ECU", vaccinationRate: "80%" }, // Ecuador
+  { lat: 12.8797, lon: -85.9050, name: "NIC", vaccinationRate: "75%" }, // Nicaragua
+  { lat: 15.1992, lon: -86.2419, name: "SLV", vaccinationRate: "78%" }, // El Salvador
+  { lat: 13.4443, lon: -58.7172, name: "GRD", vaccinationRate: "85%" }, // Grenada
+  { lat: -16.2902, lon: -63.5887, name: "BOL", vaccinationRate: "70%" }, // Bolivia
+  { lat: 12.8654, lon: -85.2072, name: "NIC", vaccinationRate: "78%" }, // Nicaragua
+  { lat: 7.5980, lon: -80.0240, name: "PAN", vaccinationRate: "88%" }, // Panama
+  { lat: -32.5228, lon: -55.7651, name: "URY", vaccinationRate: "83%" }, // Uruguay
+  { lat: 13.7942, lon: -60.9789, name: "VCT", vaccinationRate: "90%" }, // Saint Vincent and the Grenadines
+  { lat: 9.7489, lon: -83.7534, name: "CRC", vaccinationRate: "85%" }, // Costa Rica
+  { lat: 19.3131, lon: -81.2546, name: "CUB", vaccinationRate: "80%" }, // Cuba
+  { lat: 1.3521, lon: -75.5196, name: "GTM", vaccinationRate: "75%" }, // Guatemala
+  { lat: -19.2576, lon: -63.7822, name: "BOL", vaccinationRate: "70%" }, // Bolivia
+  { lat: 6.6111, lon: -58.4981, name: "SUR", vaccinationRate: "70%" }, // Suriname
+  { lat: -1.8312, lon: -78.1835, name: "ECU", vaccinationRate: "75%" }, // Ecuador
+  { lat: -12.0432, lon: -77.0282, name: "PER", vaccinationRate: "77%" }, // Peru
+  { lat: 5.4254, lon: -54.7065, name: "GUY", vaccinationRate: "90%" }, // Guyana
+  { lat: 6.9147, lon: -74.0770, name: "COL", vaccinationRate: "80%" }, // Colombia
+];
+
+// Loop through the country data to create markers
+countryMarkers.forEach(function(data) {
+  var marker = L.marker([data.lat, data.lon]).addTo(map);
+  marker.bindPopup("<b>" + data.name + "</b><br>Vaccination Rate: " + data.vaccinationRate);
+});
+
+
+
+// Load GeoJSON data and display it on the map
+d3.json("http://localhost:8080/data_geojson/countries.geojson").then(geoData => {
+    L.geoJSON(geoData, {
+        style: function(feature) {
+            let measlesVacRate = feature.properties.data ? feature.properties.data.measlesVaccination : 0;
+            return {
+                fillColor: getColor(measlesVacRate),
+                weight: 1,
+                opacity: 1,
+                color: 'white',
+                fillOpacity: 0.7
+            };
+        },
+        onEachFeature: function(feature, layer) {
+            let props = feature.properties;
+            let popupContent = `<b>${props.ADMIN}</b><br>
+                Measles Vaccination: ${props.data.measlesVaccination || 'N/A'}<br>
+                Measles Incidence: ${props.data.measlesIncidence || 'N/A'}<br>
+                DTP Vaccination: ${props.data.dtpVaccination || 'N/A'}<br>
+                DTP Incidence: ${props.data.dtpIncidence || 'N/A'}<br>
+                Mortality: ${props.data.mortality || 'N/A'}`;
+            layer.bindPopup(popupContent);
+        }
+    }).addTo(map);
+});
+
+// Function to determine the color based on the vaccination rate
+function getColor(value) {
+    return value > 90 ? 'dark green' :
+           value > 75 ? 'medium green' :
+           value > 50 ? 'light green' :
+           value > 25 ? 'pale green' :
+                        'light yellow';
+}
 
 
     })
